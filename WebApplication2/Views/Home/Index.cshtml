@@ -1,0 +1,70 @@
+﻿@using System.Data
+@using System.Linq
+@using WebApplication1.Models;
+
+
+
+@{
+    var ListeEleve = ViewData["Eleve"] as List<Eleve>;
+    var ListePromotions = ViewData["Promotion"] as List<Promotion>;
+    var ListeGroupes = ViewData["Groupe"] as List<Groupe>;
+}
+<input type="text" id="searchBar" placeholder="Rechercher par nom ou prénom...">
+<button id="searchButton">Rechercher</button>
+
+<table class="table">
+    <!-- Entête du tableau -->
+    <thead>
+        <tr>
+            <th>@Html.DisplayName("Nom")</th>
+            <th>@Html.DisplayName("Prenom")</th>
+            
+            <th>@Html.DisplayName("Groupe")</th>
+            
+            <th>@Html.DisplayName("Niveau")</th>
+            <th>@Html.DisplayName("Promotion")</th>
+            <th>@Html.DisplayName("Annee")</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Boucle sur les données -->
+        @foreach (Eleve row in ListeEleve)
+        {
+            @foreach (Groupe gr in ListeGroupes)
+            {
+                @foreach (Promotion pr in ListePromotions)
+                {
+                    @if (row.GroupeId == gr.Id & row.PromotionId == pr.Id)
+
+                    {
+                        <tr>
+                            <td>@row.Nom </td>
+                            <td>@row.Prenom </td>
+                            
+                            <td>@gr.Nom </td>
+                            
+                            
+                            
+                            <td>@pr.Annee </td>
+
+                            @* <td>
+            <div style="@(row.Statut == "present" ? "background-color: green;" :
+            row.Statut == "absent" ? "background-color: red;" :
+            row.Statut == "retard" ? "background-color: yellow;" : "")">
+            @row.Statut
+            </div>
+            </td>*@
+                        </tr>
+                    }
+
+
+                }
+
+            }
+        }
+
+
+    </tbody>
+</table>
+    
+   
